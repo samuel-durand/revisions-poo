@@ -1,24 +1,28 @@
 <?php
 
-class Category {
+class Product {
     private int $id;
     private string $name;
+    private array $photos;
+    private int $price;
     private string $description;
+    private int $quantity;
     private DateTime $createdAt;
     private DateTime $updatedAt;
-    private int $category_id; 
 
     // Constructor
-    public function __construct($id, $name, $description, $createdAt, $updatedAt, $category_id = null) {
+    public function __construct($id, $name, $photos, $price, $description, $quantity, $createdAt, $updatedAt) {
         $this->id = $id;
         $this->name = $name;
+        $this->photos = $photos;
+        $this->price = $price;
         $this->description = $description;
+        $this->quantity = $quantity;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
-        $this->category_id = $category_id;
     }
 
-    //  Getter and Setter
+    // ID Getter and Setter
     public function getId() {
         return $this->id;
     }
@@ -34,6 +38,22 @@ class Category {
         $this->name = $name;
     }
 
+    // Photos Getter and Setter
+    public function getPhotos() {
+        return $this->photos;
+    }
+    public function setPhotos($photos) {
+        $this->photos = $photos;
+    }
+
+    // Price Getter and Setter
+    public function getPrice() {
+        return $this->price;
+    }
+    public function setPrice($price) {
+        $this->price = $price;
+    }
+
     // Description Getter and Setter
     public function getDescription() {
         return $this->description;
@@ -42,11 +62,19 @@ class Category {
         $this->description = $description;
     }
 
+    // Quantity Getter and Setter
+    public function getQuantity() {
+        return $this->quantity;
+    }
+    public function setQuantity($quantity) {
+        $this->quantity = $quantity;
+    }
+
     // CreatedAt Getter and Setter
     public function getCreatedAt() {
         return $this->createdAt;
     }
-    public function setCreatedAt(DateTime $createdAt) {
+    public function setCreatedAt($createdAt) {
         $this->createdAt = $createdAt;
     }
 
@@ -54,21 +82,18 @@ class Category {
     public function getUpdatedAt() {
         return $this->updatedAt;
     }
-    public function setUpdatedAt(DateTime $updatedAt) {
+    public function setUpdatedAt($updatedAt) {
         $this->updatedAt = $updatedAt;
-    }
-
-    // Category_id Getter and Setter
-    public function getCategoryId() {
-        return $this->category_id;
-    }
-    public function setCategoryId(?int $category_id) {
-        $this->category_id = $category_id;
     }
 }
 
+$photos = ['photo1.jpg', 'photo2.jpg'];
 $createdAt = new DateTime('now');
 $updatedAt = new DateTime('now');
-$category = new Category(1, "Electronics", "Devices and gadgets", $createdAt, $updatedAt, 1);
 
-var_dump($category);
+$product = new Product(1, "Example Product", $photos, 100, "This is a description", 10, $createdAt, $updatedAt);
+
+
+var_dump($product);
+
+
