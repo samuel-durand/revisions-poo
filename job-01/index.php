@@ -85,14 +85,34 @@ class Product {
     public function setUpdatedAt($updatedAt) {
         $this->updatedAt = $updatedAt;
     }
+
+    public function insert() {
+        $dsn = "mysql:host=localhost;dbname=draft-shop";
+        $username = "root";
+        $password = "";
+        $pdo = new PDO($dsn, $username, $password);
+
+        $sql = "INSERT INTO `category`(`id`, `name`, `photos`, `createdAt`, `updatedAt`, `category_id`, `createdAt`, `updatedAt`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$this->id, $this->name, $this->photos, $this->price, $this->description, $this->quantity, $this->createdAt, $this->updatedAt]);
+    }
 }
 
-$photos = ['photo1.jpg', 'photo2.jpg'];
-$createdAt = new DateTime('now');
-$updatedAt = new DateTime('now');
+// $photos = ['photo1.jpg', 'photo2.jpg'];
+// $createdAt = new DateTime('now');
+// $updatedAt = new DateTime('now');
 
-$product = new Product(1, "Example Product", $photos, 100, "This is a description", 10, $createdAt, $updatedAt);
+// $product1 = new Product(1, "Example Product", $photos, 100, "This is a description", 10, $createdAt, $updatedAt);
 
+// $product2 = new Product();
+// $product2->setId(2);
+// $product2->setName("Another Product");
+// $product2->setPhotos($photos);
+// $product2->setPrice(200);
+// $product2->setDescription("Another description");
+// $product2->setQuantity(5);
+// $product2->setCreatedAt($createdAt);
+// $product2->setUpdatedAt($updatedAt);
 
 var_dump($product);
 

@@ -99,20 +99,40 @@ class Product {
         $stmt->execute([$this->id, $this->name, $this->photos, $this->price, $this->description, $this->quantity, $this->createdAt, $this->updatedAt]);
     }
 
+    public function select($productId) {
+        $dsn = "mysql:host=localhost;dbname=draft-shop";
+        $username = "root";
+        $password = "";
+        $pdo = new PDO($dsn, $username, $password);
+    
+        $sql = "SELECT * FROM `product` WHERE `id`=?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$productId]);
+    
+        return $stmt->fetch(PDO::FETCH_ASSOC); 
+    }
+
 }
+$product = new Product(0, '', [], 0, '', 0, '', '');
+$productData = $product->select(7);
 
-$id = 11;
-$name = "Product Name";
-$photos = ["photo1.jpg", "photo2.jpg"];
-$price = 10.99;
-$description = "Product description";
-$quantity = 100;
-$createdAt = "2022-01-01";
-$updatedAt = "2022-01-01";
+$hydratedProduct = new Product(0, '', [], 0, '', 0, '', '');
 
-$product = new Product($id, $name, $photos, $price, $description, $quantity, $createdAt, $updatedAt);
+$hydratedProduct->setId($productData['id']);
+$hydratedProduct->setName($productData['name']);
+$hydratedProduct->setPhotos($productData['photos']); 
+$hydratedProduct->setPrice($productData['price']);
+$hydratedProduct->setDescription($productData['description']);
+$hydratedProduct->setQuantity($productData['quantity']);
+$hydratedProduct->setCreatedAt($productData['createdAt']);
+$hydratedProduct->setUpdatedAt($productData['updatedAt']);
 
-// Call the insert() method
-$product->insert();
+var_dump($hydratedProduct);
+    
+
+// $product = new Product($id, $name, $photos, $price, $description, $quantity, $createdAt, $updatedAt);
+
+// // Call the insert() method
+// $product->insert();
 
 
