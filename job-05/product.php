@@ -1,5 +1,6 @@
 <?php
 
+
 class Product {
     private $id;
     private $name;
@@ -7,11 +8,12 @@ class Product {
     private $price;
     private $description;
     private $quantity;
+    private $id_category;
     private $createdAt;
     private $updatedAt;
     private $pdo;
 
-    public function __construct($id, $name , $photos , $price , $description , $quantity , $createdAt , $updatedAt ) {
+    public function __construct($id, $name , $photos , $price , $description , $quantity , $createdAt , $updatedAt,  $id_category) {
         $this->id = $id;
         $this->name = $name;
         $this->photos = $photos;
@@ -20,7 +22,7 @@ class Product {
         $this->quantity = $quantity;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
-
+        $this->id_category = $id_category;
 
     }
 
@@ -87,6 +89,15 @@ class Product {
     public function setUpdatedAt($updatedAt) {
         $this->updatedAt = $updatedAt;
     }
+
+        // id_category Getter and Setter
+    public function getIdCategory() {
+        return $this->id_category;
+    }
+
+    public function setIdCategory($id_category) {
+        $this->id_category = $id_category;
+    }
     
     public function insert() {
         $dsn = "mysql:host=localhost;dbname=draft-shop";
@@ -112,31 +123,43 @@ class Product {
         return $stmt->fetch(PDO::FETCH_ASSOC); 
     }
 
+    public function getCategory() {
+        $dsn = "mysql:host=localhost;dbname=draft-shop";
+        $username = "root";
+        $password = "";
+        $pdo = new PDO($dsn, $username, $password);
+
+        $sql = "SELECT * FROM `category`";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC); 
+    }
+
 }
 
 
 
 
-$product = new Product(0, '', [], 0, '', 0, '', '');
-$productData = $product->select(7);
+// $product = new Product(0, '', [], 0, '', 0, '', '');
+// $productData = $product->getCategory(7);
 
-$hydratedProduct = new Product(0, '', [], 0, '', 0, '', '');
+// $hydratedProduct = new Product(0, '', [], 0, '', 0, '', '');
 
-$hydratedProduct->setId($productData['id']);
-$hydratedProduct->setName($productData['name']);
-$hydratedProduct->setPhotos($productData['photos']); 
-$hydratedProduct->setPrice($productData['price']);
-$hydratedProduct->setDescription($productData['description']);
-$hydratedProduct->setQuantity($productData['quantity']);
-$hydratedProduct->setCreatedAt($productData['createdAt']);
-$hydratedProduct->setUpdatedAt($productData['updatedAt']);
+// $hydratedProduct->setId($productData['id']);
+// $hydratedProduct->setName($productData['name']);
+// $hydratedProduct->setPhotos($productData['photos']); 
+// $hydratedProduct->setPrice($productData['price']);
+// $hydratedProduct->setDescription($productData['description']);
+// $hydratedProduct->setQuantity($productData['quantity']);
+// $hydratedProduct->setCreatedAt($productData['createdAt']);
+// $hydratedProduct->setUpdatedAt($productData['updatedAt']);
 
-var_dump($hydratedProduct);
+// var_dump($hydratedProduct);
     
 
 // $product = new Product($id, $name, $photos, $price, $description, $quantity, $createdAt, $updatedAt);
 
-// // Call the insert() method
-// $product->insert();
+
 
 
